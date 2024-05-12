@@ -34,13 +34,24 @@ jobs:
         env:
           NO_SKIP: true
         run: |
-          mkdir -p ./rule-set
-          cp ./geoip.dat ./geosite.dat ./.github/convert-mihomo.sh ./rule-set
-          cd ./rule-set
+          mkdir -p ./rule-set/mihomo
+          cp ./geoip.dat ./geosite.dat ./.github/convert-mihomo.sh ./rule-set/mihomo
+          cd ./rule-set/mihomo
           wget https://github.com/IrineSistiana/mosdns/releases/download/v4.5.3/mosdns-linux-amd64.zip -O mosdns.zip && unzip mosdns.zip
           chmod 755 mosdns convert-mihomo.sh && ./convert-mihomo.sh
           rm mosdns* convert-mihomo.sh geoip.dat geosite.dat LICENSE README.md config.yaml
-          
+        
+      - name: Convert geo to surge-rules
+        env:
+          NO_SKIP: true
+        run: |
+          mkdir -p ./rule-set/surge
+          cp ./geoip.dat ./geosite.dat ./.github/convert-surge.sh ./rule-set/surge
+          cd ./rule-set/surge
+          wget https://github.com/IrineSistiana/mosdns/releases/download/v4.5.3/mosdns-linux-amd64.zip -O mosdns.zip && unzip mosdns.zip
+          chmod 755 mosdns convert-surge.sh && ./convert-surge.sh
+          rm mosdns* convert-surge.sh geoip.dat geosite.dat LICENSE README.md config.yaml
+
       - name: Move files
         run: |
           install -Dp ./Country.mmdb ./publish/country.mmdb
