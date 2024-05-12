@@ -6,8 +6,8 @@ list=($(ls ./geoip | sed 's/geoip_//g' | sed 's/\.txt//g'))
 for ((i = 0; i < ${#list[@]}; i++)); do
 	#	echo "${list[i]}"
 	mv ./geoip/geoip_${list[i]}.txt ./geoip/${list[i]}.list
-	sed -i -E 's/([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\/[0-9]{1,2})/IP-CDIR,\1/g' ./geoip/${list[i]}.list
-	sed -i -E 's/([0-9a-fA-F:]+\/[0-9]+)$/IP-CDIR6,\1/g' ./geoip/${list[i]}.list    
+	sed -i -E 's/([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\/[0-9]{1,2})/IP-CIDR,\1/g' ./geoip/${list[i]}.list
+	sed -i '/^IP-CIDR,/! s/^/IP-CIDR6,/' ./geoip/${list[i]}.list    
 done
 
 mkdir -p geosite

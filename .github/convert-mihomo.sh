@@ -7,7 +7,7 @@ for ((i = 0; i < ${#list[@]}; i++)); do
 	#	echo "${list[i]}"
 	mv ./geoip/geoip_${list[i]}.txt ./geoip/${list[i]}.list
 	echo "payload:" >./geoip/${list[i]}.yaml
-	cat ./geoip/${list[i]}.list | sed 's/^/- "/g' | sed 's/$/"/g' >>./geoip/${list[i]}.yaml
+	cat ./geoip/${list[i]}.list | sed 's/^/  - "/g' | sed 's/$/"/g' >>./geoip/${list[i]}.yaml
 done
 
 mkdir -p geosite
@@ -23,5 +23,5 @@ for ((i = 0; i < ${#list[@]}; i++)); do
 	sed -i 's/+.full://g' ./geosite/${list[i]}.list
 	sed -i 's/+.domain:/+./g' ./geosite/${list[i]}.list
 	echo "payload:" >./geosite/${list[i]}.yaml
-	cat ./geosite/${list[i]}.list | sed 's/^/- "/g' | sed 's/$/"/g' >>./geosite/${list[i]}.yaml
+	cat ./geosite/${list[i]}.list | sed 's/^/  - "/g' | sed 's/$/"/g' >>./geosite/${list[i]}.yaml
 done
